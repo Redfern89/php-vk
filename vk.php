@@ -43,7 +43,7 @@
 	define ('ACCESS_TOKEN', '');		// access_token, который ты должен получить в настройках своего пблика
 	define ('PEER_PROBE_START', 0);		// Число, от которого будет идти отсчет для поиска чатов
 	define ('PEER_PROBE_END', 20);		// Число, до которого будет идти отсчет для поиска чатов
-	define ('PEER_ID', '');			// Сюда нужно поместить ID, который ты получишь из списка с запуском list_peers
+	define ('PEER_ID', '');			// Сюда нужно поместить ID (или список ID через запятую), которые ты получишь из списка с запуском list_peers
 
 	// Принимаем аргументы из консоли
 	$argv = $_SERVER['argv'];
@@ -91,7 +91,7 @@
 	// Функция отправки сообщения
 	function _vkApi_sendMessage($peer_id, $text) {
 		$vk = _vkApi_Call('messages.send', array(
-			'peer_id' => $peer_id,
+			'peer_ids' => $peer_id,
 			'random_id' => random_uint32_t(),
 			'message' => $text
 		));
@@ -103,12 +103,17 @@
 	if (isset($argv[1])) { // Если есть аргумент с индексом 1, то ...
 		$act_arg = $argv[1];
 		
+		if ($act_arg == 'test_message') {
+			echo _vkApi_sendMessage(PEER_ID, 'test message');
+			echo "\n";
+		}
+		
 		// Если аргумент нам говорит, что нужно отправить сообщение - ...
 		if ($act_arg == 'send_message') {
 			if (!empty($messages_array)) { // Если массив $messages_array не пуст - ...
 				foreach ($messages_array as $date => $message) { // Перебираем его
 					if ($date == $current_date) { // Если нашлась дата и она совпала с текущей, ...
-						_vkApi_sendMessage(PEER_ID, $message); // Отсылаем сообщение из массива
+						echo _vkApi_sendMessage(PEER_ID, $message); // Отсылаем сообщение из массива
 					}
 				}
 			}
