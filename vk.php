@@ -43,7 +43,7 @@
 	define ('ACCESS_TOKEN', '');		// access_token, который ты должен получить в настройках своего пблика
 	define ('PEER_PROBE_START', 0);		// Число, от которого будет идти отсчет для поиска чатов
 	define ('PEER_PROBE_END', 20);		// Число, до которого будет идти отсчет для поиска чатов
-	define ('PEER_ID', '');				// Сюда нужно поместить ID, который ты получишь из списка с запуском list_peers
+	define ('PEER_ID', '');			// Сюда нужно поместить ID, который ты получишь из списка с запуском list_peers
 
 	// Принимаем аргументы из консоли
 	$argv = $_SERVER['argv'];
@@ -123,7 +123,7 @@
 			for ($i = PEER_PROBE_START; $i <= PEER_PROBE_END; $i++) {
 				$peer_id = 2000000000 + $i; // peer_id в фомате 2000000000 + текущий ID
 				
-				echo sprintf("Propbing id: %d\n", $peer_id);
+				echo sprintf("Probing id: %d\n", $peer_id);
 				
 				// Делаем проверяющий запрос на сервер
 				$vk = _vkApi_Call('messages.getConversationsById', array('peer_ids' => $peer_id));
